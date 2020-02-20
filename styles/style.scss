@@ -1,6 +1,8 @@
 $base-color: #fff;
 $second-color: #a0a0a1;
 $base-background-color: #1f2224;
+$second-background-color: #34363b;
+$button-color: #34a58e;
 $base-font: "Source Sans Pro", Helvetica, sans-serif;
 
 *{
@@ -40,9 +42,10 @@ $base-font: "Source Sans Pro", Helvetica, sans-serif;
     &-title {
         position: absolute;
         bottom: 0;
-        padding: 1rem;
-        font-size: 0.8rem;
+        padding: 2rem;
+        font-size: 1rem;
         font-weight: 300;
+        letter-spacing: 0.1rem;
         color: $base-color;
         text-transform: uppercase;
     }
@@ -52,36 +55,204 @@ $base-font: "Source Sans Pro", Helvetica, sans-serif;
     bottom: 0;
     background-color: $base-background-color;
     width: 100%;
-    height: 50px;
-    &-button {
+    height: 60vh;
+    &-content {
         display: flex;
         justify-content: space-between;
-        margin: 0 1rem;
-        &-name {
-            line-height: 50px;
-            font-size: 1rem;
-            font-weight: 300;
-            text-transform: uppercase;
-            color: $second-color;
+        width: 80%;
+        margin: 1rem auto 0 auto;
+        height: 52vh;
+    }
+}
+.info-bar-exit {
+    text-decoration: none;
+    right: 0px;
+    top: 32px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    margin: 1rem 0;
+    transition: 0.5s;
+    &:before, &:after {
+        position: absolute;
+        right: 32px;
+        top: 16px;
+        content: ' ';
+        height: 33px;
+        width: 2px;
+        background-color: $second-color;
+    }
+    &:before {
+        transform: rotate(45deg);
+    }
+    &:after {
+        transform: rotate(-45deg);
+    }
+    &:hover {
+        opacity: 1;
+     }
+}
+.info-bar-button {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    &-name {
+        padding: 1rem;
+        font-size: 1.2rem;
+        letter-spacing: 0.1rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        color: $second-color;
+    }
+    &-activate {
+        background-color: $base-background-color;
+        padding: 1rem;
+        border: none;
+        font-size: 1.2rem;
+        letter-spacing: 0.1rem;
+        color: $second-color;
+        font-weight: 400;
+        &:hover {
+            color: $base-color;
+            cursor: pointer;
+            transition: 1s;
         }
-        &-activate {
-            background-color: $base-background-color;
-            border: none;
-            font-size: 1rem;
-            color: $second-color;
-            font-weight: 400;
-            &:hover {
-                color: $base-color;
-                cursor: pointer;
-                transition: 1s;
-            }
+    }
+    &-span {
+        color: $base-color;
+        font-weight: 400;
+        letter-spacing: 0.2rem;
+    }
+}
+.info-bar-content-text {
+    width: 50%;
+    margin: 1rem;
+    &-title {
+        font-size: 1.5rem;
+        font-weight: 300;
+        letter-spacing: 0.2rem;
+        color: $base-color;
+        text-transform: uppercase;
+    }
+    &-paragraph {
+        font-size: 1.3rem;
+        font-weight: 300;
+        letter-spacing: 0.1rem;
+        line-height: 2rem;
+        color: $second-color;
+        margin: 1rem 0;
+    }
+}
+.info-bar-content-form {
+    width: 50%;
+    margin: 1rem;
+    height: 54vh;
+    &-label {
+        @extend .info-bar-content-text-title
+    }
+    &-flex {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin: 1rem 0
+    }
+    &-input {
+        background-color: $second-background-color;
+        border: none;
+        padding: 1rem;
+        width: 47%;
+    }
+    &-textarea {
+        width: 100%;
+        padding: 1rem;
+        background-color: $second-background-color;
+        border: none;
+        margin-top: 1rem;
+    }
+}
+.info-bar-content-form-button {
+    padding: 0.8rem 2.5rem;
+    margin: 0 2rem 0 0;
+    font-size: 1.2rem;
+    transition: 0.5s;
+    &-style1 {
+        background-color: $button-color;
+        color: $base-color;
+        border: 2px solid $button-color;
+        &:hover {
+            cursor: pointer;
+            background-color: lighten($button-color, 10%);
+        }
+    }
+    &-style2 {
+        background-color: $base-background-color;
+        color: $base-color;
+        border: 2px solid $second-background-color;
+        &:hover {
+            cursor: pointer;
+            color: $button-color;
+            border: 2px solid $button-color;
         }
     }
 }
-span {
-    color: $base-color;
-    font-weight: 400;
+@media only screen and (max-width: 1700px) {
+    .gallery {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
 }
-.info-bar-content {
-    display: none;
+@media only screen and (max-width: 1300px) {
+    * {
+        font-size: 12px;
+    }
+    .gallery {
+        grid-template-columns: 1fr 1fr;
+    }
+    .info-bar {
+        height: 50vh;
+    }
+}
+@media only screen and (max-width: 750px) {
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+    .info-bar {
+        height: 100vh;
+        &-content {
+            display: inline;
+            width: 100%;
+            margin: 1rem auto 0 auto;
+            &-text {
+                width: 95%;
+                margin: 7rem auto;
+            }
+            &-form {
+                width: 95%;
+                margin: 7rem auto;
+                &-flex {
+                    display: inline;
+                }
+                &-input {
+                    width: 100%;
+                    margin: 1rem 0;
+                }
+                &-button {
+                    margin-top: 1rem;
+                }
+            }
+        }
+        &-button {
+            top: 0;
+        }
+        &-exit {
+            &:before, &:after {
+                position: absolute;
+                right: 3rem;
+                top: 48px;
+            }
+        }
+    }
 }
