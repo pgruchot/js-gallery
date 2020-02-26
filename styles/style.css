@@ -56,36 +56,39 @@
   bottom: 0;
   background-color: #1f2224;
   width: 100%;
-  height: 60vh;
+  height: 50px;
+  -webkit-transition: 1s;
+  transition: 1s;
 }
 
 .info-bar-content {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
   width: 80%;
   margin: 1rem auto 0 auto;
   height: 52vh;
-}
-
-.disabled-bar {
   -webkit-transition: 1s;
   transition: 1s;
-  height: 50px;
 }
 
-.disabled-bar > .info-bar-exit {
-  display: none;
+.active-bar {
+  height: 60vh;
 }
 
-.disabled-bar > .info-bar-content {
-  display: none;
+.active-bar > .info-bar-exit {
+  display: inherit;
+}
+
+.active-bar > .info-bar-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .info-bar-exit {
+  display: none;
   text-decoration: none;
   right: 0px;
   top: 32px;
@@ -136,7 +139,7 @@
 }
 
 .info-bar-button-name {
-  padding: 1rem;
+  line-height: 50px;
   font-size: 1.2rem;
   letter-spacing: 0.1rem;
   font-weight: 300;
@@ -145,8 +148,9 @@
 }
 
 .info-bar-button-activate {
-  background-color: #1f2224;
-  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0 1rem;
+  line-height: 50px;
   border: none;
   font-size: 1.2rem;
   letter-spacing: 0.1rem;
@@ -165,6 +169,7 @@
   color: #fff;
   font-weight: 400;
   letter-spacing: 0.2rem;
+  font-size: 1.3rem;
 }
 
 .info-bar-content-text {
@@ -281,6 +286,8 @@
   opacity: 1;
   -webkit-box-shadow: 0px 0px 30px 6px rgba(0, 0, 0, 0.75);
           box-shadow: 0px 0px 30px 6px rgba(0, 0, 0, 0.75);
+  -webkit-transition: 1s;
+  transition: 1s;
 }
 
 .fullscreen-container-btn {
@@ -358,9 +365,6 @@
     -ms-grid-rows: (350px)[6];
         grid-template-rows: repeat(6, 350px);
   }
-  .info-bar {
-    height: 50vh;
-  }
 }
 
 @media only screen and (max-width: 750px) {
@@ -370,11 +374,18 @@
     -ms-grid-rows: (350px)[12];
         grid-template-rows: repeat(12, 350px);
   }
-  .info-bar {
+  .active-bar {
+    height: 100vh;
+  }
+  .active-bar > .info-bar-exit {
+    display: none;
+  }
+  .active-bar > .info-bar-content {
+    display: block;
     height: 100vh;
   }
   .info-bar-content {
-    display: inline;
+    display: none;
     width: 100%;
     margin: 1rem auto 0 auto;
   }
@@ -397,12 +408,10 @@
     margin-top: 1rem;
   }
   .info-bar-button {
-    top: 0;
+    bottom: 0;
   }
-  .info-bar-exit:before, .info-bar-exit:after {
-    position: absolute;
-    right: 3rem;
-    top: 48px;
+  .info-bar-exit {
+    display: none;
   }
 }
 /*# sourceMappingURL=style.css.map */

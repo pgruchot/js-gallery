@@ -1,76 +1,92 @@
-const imageBoxes = document.querySelectorAll(".gallery-image-box");
-const fullscreenImg = document.querySelector(".fullscreen-container")
-const fullscreenTitle = document.querySelector(".fullscreen-container-title")
-const fullscreenParagraph = document.querySelector(".fullscreen-container-paragraph")
+//element references
+const fullscreenImg = document.querySelector(".fullscreen-container");
+const fullscreenTitle = document.querySelector(".fullscreen-container-title");
+const fullscreenParagraph = document.querySelector(".fullscreen-container-paragraph");
 const fullscreen = document.querySelector(".fullscreen");
 
+//variable used for navigation
 let currentPosition = 0;
 
-let nextImg = "";
-let nextTitle = "";
-let nextParagraph = "";
+//object with data for image display
+const gallery = {
+    previousImg: "",
+    previousTitle: "",
+    previousParagraph: "",
+    
+    currentImg: "",
+    currentTitle: "",
+    currentParagraph: "",
 
-let previousImg = "";
-let previousTitle = "";
-let previousParagraph = "";
+    nextImg: "",
+    nextTitle: "",
+    nextParagraph: "",
+    
+    //swapping images
+    action: (i) => {
+        let previousCounter = i, nextCounter = i;
+        currentPosition = i;
+        if(i == 0) 
+            previousCounter = imageBoxes.length
+        previousImg = imageBoxes[previousCounter-1].children[0].src;
+        previousTitle = imageBoxes[previousCounter-1].children[1].textContent;
+        previousParagraph = imageBoxes[previousCounter-1].children[2].textContent;
+        
+        currentImg = imageBoxes[i].children[0].src;
+        currentTitle = imageBoxes[i].children[1].textContent;
+        currentParagraph = imageBoxes[i].children[2].textContent;
+        
+        if(i == 11)
+            nextCounter = -1;
+        nextImg = imageBoxes[nextCounter+1].children[0].src;
+        nextTitle = imageBoxes[nextCounter+1].children[1].textContent;
+        nextParagraph = imageBoxes[nextCounter+1].children[2].textContent;
+        fullscreenImg.style.backgroundImage = `url("${currentImg}")`;
+        fullscreenTitle.textContent = currentTitle;
+        fullscreenParagraph.textContent = currentParagraph;        
+    }
+}
 
-console.log(imageBoxes)
+//event listeners for image boxes
+const imageBoxes = document.querySelectorAll(".gallery-image-box");
 imageBoxes.forEach( (box, i) => {
     box.addEventListener("click", () => {
 
-        currentPosition = i;
-        console.log(i)
-
-        //parsing currently clicked image data
-        imgSRC = box.children[0].src;
-        title = box.children[1].textContent;
-        paragraph = box.children[2].textContent;
-
-        //prepare previous button
-        if(i == 0)
-            i = imageBoxes.length;
-        previousImg = imageBoxes[i-1].children[0].src;
-        previousTitle = imageBoxes[i-1].children[1].src;
-        previousParagraph = imageBoxes[i-1].children[2].src;
-
-        //prepare next button
-        if(i == 11)
-            i = -1;
-        nextImg = imageBoxes[i+1].children[0].src;
-        nextTitle = imageBoxes[i+1].children[1].src;
-        nextParagraph = imageBoxes[i+1].children[2].src;
-
-        //applying currently clicked data
-        fullscreenImg.style.backgroundImage = `url(${imgSRC})`;
-        fullscreenTitle.textContent = title;
-        fullscreenParagraph.textContent = paragraph;
+        gallery.action(i);
         fullscreen.classList.toggle("disabled-fullscreen");
     })
 } )
 
+//image close button
 const fullscreenClose = document.querySelector(".fullscreen-container-btn-cross");
 fullscreenClose.addEventListener("click", () => {
     fullscreen.classList.toggle("disabled-fullscreen");
 })
 
-const fullscreenNext = document.querySelector(".fullscreen-container-btn-left");
+//next image button
+const fullscreenNext = document.querySelector(".fullscreen-container-btn-right");
 fullscreenNext.addEventListener("click", () => {
-    //applying currently clicked data
-    fullscreenImg.style.backgroundImage = `url(${nextImg})`;
-    fullscreenTitle.textContent = nextTitle;
-    fullscreenParagraph.textContent = nextParagraph;
-
-    //prepare previous button
-    if(currentPosition == 1)
-    currentPosition = imageBoxes.length+1;
-    previousImg = imageBoxes[currentPosition-1].children[0].src;
-    previousTitle = imageBoxes[currentPosition-1].children[1].src;
-    previousParagraph = imageBoxes[currentPosition-1].children[2].src;
-
-    //prepare next button
     if(currentPosition == 11)
         currentPosition = -1;
-    nextImg = imageBoxes[currentPosition+1].children[0].src;
-    nextTitle = imageBoxes[currentPosition+1].children[1].src;
-    nextParagraph = imageBoxes[currentPosition+1].children[2].src;
+    gallery.action(currentPosition+1);
+})
+
+//previous image button
+const fullscreenPrevious = document.querySelector(".fullscreen-container-btn-left");
+fullscreenPrevious.addEventListener("click", () => {
+    if(currentPosition == 0)
+        currentPosition = 12;
+    gallery.action(currentPosition-1);
+})
+
+//activate contact menu
+const aboutButton = document.querySelector(".info-bar-button-activate");
+const infoBar = document.querySelector(".info-bar");
+aboutButton.addEventListener("click", () => {
+    infoBar.classList.toggle("active-bar");
+})
+
+//close contact menu
+const closeMenuButton = document.querySelector(".info-bar-exit")
+closeMenuButton.addEventListener("click", () => {
+    infoBar.classList.toggle("active-bar");
 })

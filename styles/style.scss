@@ -56,26 +56,28 @@ $base-font: "Source Sans Pro", Helvetica, sans-serif;
     bottom: 0;
     background-color: $base-background-color;
     width: 100%;
-    height: 60vh;
+    height: 50px;
+    transition: 1s;
     &-content {
-        display: flex;
+        display: none;
         justify-content: space-between;
         width: 80%;
         margin: 1rem auto 0 auto;
         height: 52vh;
+        transition: 1s;
     }
 }
-.disabled-bar {
-    transition: 1s;
-    height: 50px;
+.active-bar {
+    height: 60vh;
     > .info-bar-exit {
-        display: none;
+        display: inherit;
     }
     > .info-bar-content {
-        display: none;
+        display: flex;
     }
 }
 .info-bar-exit {
+    display: none;
     text-decoration: none;
     right: 0px;
     top: 32px;
@@ -112,7 +114,7 @@ $base-font: "Source Sans Pro", Helvetica, sans-serif;
     width: 100%;
     height: 50px;
     &-name {
-        padding: 1rem;
+        line-height: 50px;
         font-size: 1.2rem;
         letter-spacing: 0.1rem;
         font-weight: 300;
@@ -120,8 +122,9 @@ $base-font: "Source Sans Pro", Helvetica, sans-serif;
         color: $second-color;
     }
     &-activate {
-        background-color: $base-background-color;
-        padding: 1rem;
+        background-color: rgba($color: #000000, $alpha: 0);
+        padding: 0 1rem;
+        line-height: 50px;
         border: none;
         font-size: 1.2rem;
         letter-spacing: 0.1rem;
@@ -137,6 +140,7 @@ $base-font: "Source Sans Pro", Helvetica, sans-serif;
         color: $base-color;
         font-weight: 400;
         letter-spacing: 0.2rem;
+        font-size: 1.3rem;
     }
 }
 .info-bar-content-text {
@@ -218,6 +222,7 @@ $base-font: "Source Sans Pro", Helvetica, sans-serif;
     z-index: 9000;
     background-color: rgba($color: #000000, $alpha: 0.5);
     backdrop-filter: blur(4px);
+    
 }
 .disabled-fullscreen {
     display: none;
@@ -235,6 +240,7 @@ $base-font: "Source Sans Pro", Helvetica, sans-serif;
     height: 600px;
     opacity: 1;
     box-shadow: 0px 0px 30px 6px rgba(0,0,0,0.75);
+    transition: 1s;
     &-btn {
         position: absolute;
         filter: invert(1);
@@ -284,7 +290,6 @@ $base-font: "Source Sans Pro", Helvetica, sans-serif;
 }
 
 
-
 @media only screen and (max-width: 1700px) {
     .gallery {
         grid-template-columns: 1fr 1fr 1fr;
@@ -299,19 +304,26 @@ $base-font: "Source Sans Pro", Helvetica, sans-serif;
         grid-template-columns: 1fr 1fr;
         grid-template-rows: repeat(6, 350px);
     }
-    .info-bar {
-        height: 50vh;
-    }
 }
 @media only screen and (max-width: 750px) {
     .gallery {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(12, 350px);
     }
-    .info-bar {
+    .active-bar {
         height: 100vh;
+        > .info-bar-exit {
+            display: none;
+        }
+        > .info-bar-content {
+            display: block;
+            height: 100vh;
+        }
+    }
+    .info-bar {
+
         &-content {
-            display: inline;
+            display: none;
             width: 100%;
             margin: 1rem auto 0 auto;
             &-text {
@@ -334,14 +346,10 @@ $base-font: "Source Sans Pro", Helvetica, sans-serif;
             }
         }
         &-button {
-            top: 0;
+            bottom: 0;
         }
         &-exit {
-            &:before, &:after {
-                position: absolute;
-                right: 3rem;
-                top: 48px;
-            }
+            display: none;
         }
     }
 }
